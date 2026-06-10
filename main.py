@@ -25,8 +25,8 @@ app.mount(
     name="uploads"
 )   
 
-os.makedirs("uploads", exist_ok=True)
-
+os.makedirs("uploads/originals", exist_ok=True)
+os.makedirs("uploads/results", exist_ok=True)
 # Load YOLO once
 model = YOLO("yolov8n.pt")
 
@@ -95,12 +95,6 @@ async def predict(
             0
         ) + 1
 
-
-    context={
-    "detections": detections,
-    "summary": summary,
-    "image": "/" + annotated_path
-}
 
 
     return templates.TemplateResponse(
