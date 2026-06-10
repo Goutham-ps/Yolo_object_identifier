@@ -44,11 +44,13 @@ def home(request: Request):
         name="index.html"
     )
 
+print("BEFORE PREDICT ROUTE")
+
+@app.post("/predict")
 async def predict(
     request: Request,
     file: UploadFile = File(...)
 ):
-
     print("FILE RECEIVED")
 
     unique_name = f"{uuid.uuid4()}_{file.filename}"
@@ -63,6 +65,8 @@ async def predict(
     results = model(file_path)
 
     print("YOLO INFERENCE COMPLETE")
+
+
     results = model(file_path)
     annotated_image = results[0].plot()
 
@@ -116,3 +120,5 @@ async def predict(
             "original_image": "/" + file_path
         }
     )   
+
+print("PREDICT ROUTE REGISTERED")
