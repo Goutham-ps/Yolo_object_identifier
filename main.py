@@ -27,9 +27,14 @@ app.mount(
 
 os.makedirs("uploads/originals", exist_ok=True)
 os.makedirs("uploads/results", exist_ok=True)
+# # Load YOLO once
+# model = YOLO("yolov8n.pt")
+print("STARTING APP")
+
 # Load YOLO once
 model = YOLO("yolov8n.pt")
 
+print("YOLO LOADED")
 
 @app.get("/")
 def home(request: Request):
@@ -39,13 +44,12 @@ def home(request: Request):
         name="index.html"
     )
 
-
-@app.post("/predict")
 async def predict(
     request: Request,
     file: UploadFile = File(...)
 ):
 
+    print("FILE RECEIVED")
 
     unique_name = f"{uuid.uuid4()}_{file.filename}"
 
@@ -54,6 +58,11 @@ async def predict(
     with open(file_path, "wb") as buffer:
         buffer.write(await file.read())
 
+    print("FILE SAVED")
+
+    results = model(file_path)
+
+    print("YOLO INFERENCE COMPLETE")
     results = model(file_path)
     annotated_image = results[0].plot()
 
