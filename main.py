@@ -109,7 +109,6 @@ async def predict(
         ) + 1
 
 
-
     return templates.TemplateResponse(
         request=request,
         name="result.html",
@@ -117,8 +116,9 @@ async def predict(
             "detections": detections,
             "summary": summary,
             "image": "/" + annotated_path,
-            "original_image": "/" + file_path
+            "original_image": "/" + file_path   
         }
     )   
+
 
 print("PREDICT ROUTE REGISTERED")
