@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+
+uploads/originals/*
+!uploads/originals/.gitkeep
+
+uploads/results/*
+!uploads/results/.gitkeep

@@ -1,5 +1,0 @@
-gradio
-ultralytics
-pillow
-torch
-torchvision
